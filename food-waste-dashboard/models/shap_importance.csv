@@ -1,0 +1,70 @@
+feature,mean_shap
+hist_wr_item,0.17246292204863276
+food_unit_cost,0.06217430349098016
+food_is_preorder,0.05210891977727237
+avg_menu_n_special_food,0.00973478558862304
+food_is_children,0.005611082884170586
+pax_avg_age,0.004566669303670217
+food_is_standard,0.0012688893098904118
+hist_wr_route,0.0011865305497422416
+hist_wr_round,0.001065824931103981
+avg_food_cost,0.0010039000899617918
+round_num,0.0007580633800843645
+avg_menu_n_free_food,0.0006884011133984572
+pax_nat_diversity,0.0006403132817996982
+avg_menu_n_premium_food,0.0005929277198714012
+food_is_special,0.0005881490943869758
+pax_pct_teen,0.0005732287498261318
+avg_menu_n_bev,0.0005100193138905963
+pax_pct_male,0.00045211531031837045
+ftype_Special - Muslim,0.0004335961573634437
+ftype_Special - Kosher,0.0004038430584696681
+avg_menu_n_food,0.00038111882747463087
+Duration (hours),0.00031021940361753423
+ftype_Special - Hindu Vegetarian,0.00030340891826001747
+hist_wr_category,0.0002981567674999075
+pax_pct_cls_economy,0.00028134692433049314
+pax_pct_senior,0.00027160814690026746
+pax_pct_child,0.00024325941998985294
+pax_total,0.00023383395830323163
+pax_pct_family_child,0.0002200774472845267
+pax_pct_cls_business,0.00021528236523955948
+pax_pct_cls_premiumeconomy,0.000163801913055095
+pax_pct_solo,0.00015116138453661845
+pax_n_economy,9.268724568498485e-05
+pax_avg_lead,7.864351028527352e-05
+dep_dow,7.274220444597141e-05
+pax_n_premiumeconomy,5.2761946194174076e-05
+pax_pct_unaccompanied_minor,3.673776896715972e-05
+pax_pct_cls_first,3.534952666635441e-05
+dep_hour,2.5088287861912822e-05
+pax_n_first,8.974092463595477e-06
+model_B787-9,8.838138333531278e-06
+dep_month,4.775703117499493e-06
+is_morning,2.7498285160875066e-06
+is_weekend,0.0
+pax_pct_couple,0.0
+model_B787-8,0.0
+pax_n_business,0.0
+cat_three_class_standard,0.0
+model_B787-10,0.0
+cat_four_class,0.0
+is_longhaul,0.0
+is_overnight,0.0
+cat_three_class_luxury,0.0
+ftype_Special - Vegan,0.0
+ftype_Special - Low Salt,0.0
+ftype_Special - Lactose-Free,0.0
+ftype_Special - Gluten-Free,0.0
+ftype_Special - Hindu Non-Veg,0.0
+ftype_Children,0.0
+ftype_Premium,0.0
+ftype_Special - Diabetic,0.0
+food_is_premium,0.0
+food_is_breakfast,0.0
+ftype_Breakfast,0.0
+ftype_Standard,0.0
+avg_menu_n_breakfast,0.0
+ftype_Special - Vegetarian,0.0
+avg_bev_cost,0.0
+avg_menu_n_alcoholic,0.0

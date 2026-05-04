@@ -347,8 +347,9 @@ plt.rcParams.update({
 C = ["#3b82f6","#ef4444","#10b981","#f59e0b","#8b5cf6",
      "#06b6d4","#f97316","#6366f1","#ec4899","#14b8a6"]
 
-BASE_MODELS = "models"
-BASE_PROC   = "data/processed"
+BASE_DIR    = os.path.dirname(os.path.abspath(__file__))
+BASE_MODELS = os.path.join(BASE_DIR, "models")
+BASE_PROC   = os.path.join(BASE_DIR, "data", "processed")
 
 class DQN(nn.Module):
     def __init__(self, state_dim, n_actions):

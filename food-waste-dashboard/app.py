@@ -6,6 +6,7 @@ import joblib
 import json
 import os
 import warnings
+import pickle
 warnings.filterwarnings("ignore")
 
 import torch
@@ -399,7 +400,8 @@ def load_data():
 
 @st.cache_resource
 def load_models(feature_cols, train_df):
-    hgb = joblib.load(os.path.join(BASE_MODELS,"model_hgb_tuned.pkl"))
+    with open(os.path.join(BASE_MODELS,"model_hgb_tuned_compat.pkl"), "rb") as f:
+        hgb = pickle.load(f)
     dqn_m = DQN(len(feature_cols), 4)
     dqn_m.load_state_dict(torch.load(
         os.path.join(BASE_MODELS,"dqn_policy.pth"), map_location="cpu"))

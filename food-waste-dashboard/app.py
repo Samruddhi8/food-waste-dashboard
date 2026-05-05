@@ -399,12 +399,18 @@ def load_data():
     return train, test, master, meta, si, sv
 
 class _CompatUnpickler(pickle.Unpickler):
-    """Intercepts numpy 2.x BitGenerator objects during unpickling on numpy 1.x."""
+    """Handles numpy 2.x → 1.x random state incompatibility."""
     def find_class(self, module, name):
+        # Intercept the BitGenerator constructor call
         if module == "numpy.random._pickle" and name == "__bit_generator_ctor":
-            return lambda bit_gen: np.random.PCG64()
+            return lambda *args, **kwargs: np.random.PCG64()
+        # Intercept PCG64 class itself to prevent state restoration
+        if module == "numpy.random._pcg64" and name == "PCG64":
+            class _SafePCG64(np.random.PCG64):
+                def __setstate__(self, state):
+                    pass  # skip incompatible state, keep fresh default
+            return _SafePCG64
         return super().find_class(module, name)
-
 @st.cache_resource
 def load_models(feature_cols, train_df):
     with open(os.path.join(BASE_MODELS, "model_hgb_tuned_compat.pkl"), "rb") as f:

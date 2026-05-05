@@ -398,13 +398,20 @@ def load_data():
     sv = np.load(os.path.join(BASE_MODELS,"shap_values_test.npy"))
     return train, test, master, meta, si, sv
 
+class _CompatUnpickler(pickle.Unpickler):
+    """Intercepts numpy 2.x BitGenerator objects during unpickling on numpy 1.x."""
+    def find_class(self, module, name):
+        if module == "numpy.random._pickle" and name == "__bit_generator_ctor":
+            return lambda bit_gen: np.random.PCG64()
+        return super().find_class(module, name)
+
 @st.cache_resource
 def load_models(feature_cols, train_df):
-    with open(os.path.join(BASE_MODELS,"model_hgb_tuned_compat.pkl"), "rb") as f:
-        hgb = pickle.load(f)
+    with open(os.path.join(BASE_MODELS, "model_hgb_tuned_compat.pkl"), "rb") as f:
+        hgb = _CompatUnpickler(f).load()
     dqn_m = DQN(len(feature_cols), 4)
     dqn_m.load_state_dict(torch.load(
-        os.path.join(BASE_MODELS,"dqn_policy.pth"), map_location="cpu"))
+        os.path.join(BASE_MODELS, "dqn_policy.pth"), map_location="cpu"))
     dqn_m.eval()
     sc = StandardScaler()
     sc.fit(train_df[feature_cols])

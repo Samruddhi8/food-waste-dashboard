@@ -398,23 +398,10 @@ def load_data():
     sv = np.load(os.path.join(BASE_MODELS,"shap_values_test.npy"))
     return train, test, master, meta, si, sv
 
-class _CompatUnpickler(pickle.Unpickler):
-    """Handles numpy 2.x → 1.x random state incompatibility."""
-    def find_class(self, module, name):
-        # Intercept the BitGenerator constructor call
-        if module == "numpy.random._pickle" and name == "__bit_generator_ctor":
-            return lambda *args, **kwargs: np.random.PCG64()
-        # Intercept PCG64 class itself to prevent state restoration
-        if module == "numpy.random._pcg64" and name == "PCG64":
-            class _SafePCG64(np.random.PCG64):
-                def __setstate__(self, state):
-                    pass  # skip incompatible state, keep fresh default
-            return _SafePCG64
-        return super().find_class(module, name)
 @st.cache_resource
 def load_models(feature_cols, train_df):
     with open(os.path.join(BASE_MODELS, "model_hgb_tuned_compat.pkl"), "rb") as f:
-        hgb = _CompatUnpickler(f).load()
+        hgb = pickle.load(f)
     dqn_m = DQN(len(feature_cols), 4)
     dqn_m.load_state_dict(torch.load(
         os.path.join(BASE_MODELS, "dqn_policy.pth"), map_location="cpu"))
@@ -422,7 +409,6 @@ def load_models(feature_cols, train_df):
     sc = StandardScaler()
     sc.fit(train_df[feature_cols])
     return hgb, dqn_m, sc
-
 train, test, master, meta, shap_imp, shap_vals = load_data()
 FEATURE_COLS = meta["FEATURE_COLS"]
 hgb, dqn_model, scaler = load_models(FEATURE_COLS, train)
